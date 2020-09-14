@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> PROYECTO </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="estilosPropio.css" type="text/css">
+
+</head>
+
+<body>
+
+    <div id="mainIndex" class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 mx-auto">
+
+                <div class="card card-signin my-5" style="background-color: #6e922d;">
+
+                	<div class="card-body flexContainer" style="padding: 0.7rem;">
+					    <div class="left">
+					      	<img src="logo1.png" style="margin: auto;width: 300px;" alt="Logo">
+					    </div>
+					    <div class="right" style="flex-basis: 100%; margin: auto; padding-top: 30px;">
+					      	<h5 class="card-title text-center" style="color: #000000;" >
+					      	<span style="font-weight: 900;">Facultad de Ingeniería de Sistemas e Informática </span> 
+					      	<br/>
+							(Análisis y Diseño de Algoritmos)
+							</h5>
+					    </div>
+				    </div>
+                </div>
+
+                <div class="card card-signin my-5" style="background-color: #72abcf">
+
+                	<div class="card-body flexContainer" style="padding: 0.7rem;">
+					   
+					    <div class="right" style="flex-basis: 100%; margin: auto;padding-top: 20px;">
+					      	<h5 class="card-title text-center" style="color: #000000;">
+					      	<span style="font-weight: 900;">ALGORITMOS DE ORDENACIÓN</span> 
+					      	<br/>(Selection Sort, Quick Sort y Counting Sort)
+							</h5>
+					    </div>
+				    </div>
+                </div>
+
+				<div class="card card-signin my-5" >
+                	
+                    <div class="card-body">
+
+                    	<div class="container">
+
+                    		<div class="row" v-if="listaNoVacia" >
+                    			<div class="col-md-12" >
+				                    <label style=" width: 100% ;">
+				                        <input type="checkbox" id="checkbox" v-model="generarAleatorio">
+				                        <label for="checkbox">Agregar elementos de manera aletoria</label>
+				                    </label>
+				                </div>
+                    		</div>
+
+				            <div class="row">
+				                <div class="col-md-3" v-if="!listaNoVacia">
+				                    <label class="label-tabla">Longitud de arreglo:</label><br>
+				                    <label style=" width: 100% ;">
+				                        <input type="text" class="form-control buscar-tabla" placeholder="" 
+				                        		v-model="nroElementos"
+				                        		aria-controls="dataTable" style=" width: 100% ;  "
+				                        	 	maxlength="20" onkeyup="this.value = this.value.toUpperCase();">
+				                    </label>
+				                </div>
+				            
+				                <div class="col-md-3" v-if="!listaNoVacia">
+				                    <label class="label-tabla">   </label><br>
+				                    <label style=" width: 100% ;">
+				                        <button style=" width: 100% ;" v-on:click="InicializarArreglo" class="btn btn-lg btn-ingresar btn-block" type="button"
+				                                >Crear Arreglo
+				                        </button>
+				                    </label>
+				                </div>
+				                <div class="col-md-1" v-if="listaNoVacia && !generarAleatorio">
+				                    <label class="label-tabla">Posición:</label><br>
+				                    <label style=" width: 100% ;">
+				                        <input type="text" class="form-control buscar-tabla" placeholder="" 
+				                        		v-model="cont"
+				                        		aria-controls="dataTable" style=" width: 100% ;  "
+				                               	maxlength="20" >
+				                    </label>
+				                </div>
+				                <div class="col-md-2" v-if="listaNoVacia && !generarAleatorio">
+				                    
+				                </div>
+
+				            	<div class="col-md-2" v-if="listaNoVacia && !generarAleatorio">
+				                    <label class="label-tabla">Elemento:</label><br>
+				                    <label style=" width: 100% ;">
+				                        <input type="text" class="form-control buscar-tabla" placeholder="" 
+				                        		v-model="elementoTemp"
+				                        		aria-controls="dataTable" style=" width: 100% ;  "
+				                               	maxlength="20" 
+				                               	v-on:keydown.enter="AniadirElementoPorEnter" >
+				                               	<span style="font-size: x-small;">(Presione enter para agregar)</span>
+				                    </label>
+				                </div>
+				            
+				                <div class="col-md-2" v-if="listaNoVacia && generarAleatorio">
+				                    <label class="label-tabla">Valor Máximo:</label><br>
+				                    <label style=" width: 100% ;">
+				                        <input type="text" class="form-control buscar-tabla" placeholder="" 
+				                        		v-model="maximoAleatorio"
+				                        		aria-controls="dataTable" style=" width: 100% ;  "
+				                               	maxlength="3" >
+				                    </label>
+				                </div>
+
+								<div class="col-md-3" v-if="listaNoVacia && generarAleatorio">
+				                    <label class="label-tabla">   </label><br>
+				                    <label style=" width: 100% ;">
+				                        <button style=" width: 100% ;" v-on:click="Aleatorio" class="btn btn-lg btn-ingresar btn-block" type="button">Generar Aleatorio
+				                        </button>
+				                    </label>
+				                </div>
+
+								<div class="col-md-4" v-if="listaNoVacia">
+				                </div>
+
+				                <div class="col-md-3" v-if="listaNoVacia">
+				                    <label class="label-tabla">   </label><br>
+				                    <label style=" width: 100% ;">
+				                        <button style=" width: 100% ;" v-on:click="ResetearArreglo" class="btn btn-lg btn-ingresar btn-block" type="button">Resetear Arreglo
+				                        </button>
+				                    </label>
+				                </div>
+
+				            </div>
+				            <div class="row" v-if="listaNoVacia">
+				            	<div class="col-md-12">
+				                    <label class="label-tabla">Arreglo de {{listaElementos.length}} elementos:</label><br>
+				                </div>
+				                <div class="contenedorArreglo" >
+						            <div v-for="item in listaElementos" class="contenidoArreglo" style="border: 2px solid #000000;padding: 2px; margin-bottom: 5px;">
+						            	<p style="margin: 0;">{{item}}</p>
+						            </div>
+					            </div>
+					        </div>
+					        <br/>
+							 <div class="row" v-if="listaNoVacia">
+ 
+							 	<div class="col-md-3" v-if="!conConometro" >
+				                </div>
+							 	<div class="col-md-3" >
+					                <label style=" width: 100% ;">
+					                    <input type="checkbox" id="checkboxAnimacion" v-model="conConometro">
+					                    <label for="checkboxAnimacion">¿Con animación?</label>
+					                </label>
+					            </div>
+				            	<div class="col-md-3" v-if="conConometro" >
+				                    <label class="label-tabla">Velocidad (milisegundos):</label><br>
+					                <label style=" width: 100% ;">
+					                    <input type="text" class="form-control buscar-tabla" placeholder="" 
+					                        		v-model="velocidad"
+					                        		aria-controls="dataTable" style=" width: 100% ;  "
+					                        	 	maxlength="20" >
+					                </label>
+				                </div>
+
+				                
+				                <div class="col-md-3" >
+				                    <label class="label-tabla">Tipo de Ordenamiento:</label><br>
+				                    <label style=" width: 100% ;">
+				                        <select name='cliente' aria-controls="dataTable" style=" width: 100% ; height:100% !important "
+			                                	class=" custom-select form-control buscar-tabla filtro-select"
+			                                	v-model="tipoOrdenamiento">
+				                            <option value="0">--Seleccione--</option>
+				                            <option value="1">Selection Sort</option>
+				                            <option value="2">Quick Sort</option>
+				                            <option value="3">Counting Sort</option>
+				                        </select>
+				                    </label>
+				                </div>
+				                <div class="col-md-3" >
+				                    <label class="label-tabla"> </label><br>
+				                    <label style=" width: 100% ;">
+				                        <button style=" width: 100% ;" v-on:click="OrdenarArreglo" class="btn btn-lg btn-ingresar btn-block" type="button">Ordenar Arreglo
+				                        </button>
+				                    </label>
+				                </div>
+					        </div>
+
+        				</div>
+
+
+                    </div>
+                </div>
+
+
+                 <div class="card card-signin my-5" style="background-color: #72abcf" v-if="!listaNoVacia">
+
+                	<div class="card-body flexContainer" style="padding: 0.7rem;">
+					   
+					    <div class="right" style="flex-basis: 100%; margin: auto;padding-top: 20px;">
+					      	<h5 class="card-title" style="color: #000000;">
+					      	<span style="font-weight: 900;">Estudiantes:</span> 
+					      	<br/>
+					      	<br/>
+					      	- Sifuentes Marcelo Roberto
+							<br/>
+							- Silva Gomez Giancarlo
+							<br/>
+							- Vera Cueva Antonella
+							<br/>
+							- Huallpa Chirinos Moisés
+							</h5>
+					    </div>
+				    </div>
+                </div>
+
+
+                <div class="card card-signin my-5" v-if="ordenado" >
+                    <div class="card-body">
+
+                    	<div class="container titulo-ordenamiento" >
+                    		<h1 class="titulo-contenedor">{{tituloOrdenamiento}}</h1>
+                    	</div>
+                    	
+
+                    	<div class="container">
+
+                    		<div class="row" v-if="listaInicialNoVacia">
+				            	<div class="col-md-12">
+				                    <label class="label-tabla">Arreglo inicial</label><br>
+				                </div>
+				                <div class="contenedorArreglo" >
+						            <div v-for="item in listaElementosInicial" class="contenidoArreglo" style="border: 2px solid #000000;padding: 2px; margin-bottom: 5px;">
+						            	<p style="margin: 0;">{{item}}</p>
+						            </div>
+					            </div>
+					        </div>
+
+					        <!--<div class="row" v-if="listaFinalNoVacia">
+				            	<div class="col-md-12">
+				                    <label class="label-tabla">Arreglo ordenado ({{listaElementosFinal.length}} elementos)</label><br>
+				                </div>
+				                <div class="contenedorArreglo" >
+						            <div v-for="item in listaElementosFinal" class="contenidoArreglo" style="border: 2px solid #000000;padding: 2px; margin-bottom: 5px;">
+						            	<p style="margin: 0;">{{item}}</p>
+						            </div>
+					            </div>
+					        </div>-->
+
+
+					        <div class="row" v-if="listaTemporalInicialNoVacia">
+				            	<div class="col-md-12">
+				                    <label class="label-tabla">Arreglo de partida <span v-if="conConometroValorActual && encabezadoFinal"  > || Tiempo: {{tiempo}} </span></label><br>
+				                </div>
+				                <div class="contenedorArreglo" >
+						            <div v-for="item in listaTemporalInicial" class="contenidoArreglo" style="border: 2px solid #000000;padding: 2px; margin-bottom: 5px;"
+						            :class="item.estadoCss" >
+						            	<p style="margin: 0;">{{item.valor}}</p>
+						            </div>
+					            </div>
+					        </div>
+
+					        <div class="row" v-if="listaAuxiliarNoVacia">
+				            	<div class="col-md-12">
+				                    <label class="label-tabla">Arreglo auxiliar </label><br>
+				                </div>
+				                <div class="contenedorArreglo" >
+						            <div v-for="(item,index) in listaAuxiliar" class="contenidoArreglo" style="padding: 2px; margin-bottom: 5px;" >
+						            	
+						            	<div style="margin: 2px; border-radius: 5px;" :class="item.estadoCssCabeza"  > 
+						            		<p style="margin: 0; margin-left: 5px;">{{index}}</p>
+						             	</div>
+							            
+							            <div class="contenidoArreglo" style="border: 2px solid #000000;padding: 2px; margin-bottom: 5px;" :class="item.estadoCss" >
+							            	<p style="margin: 0;">{{item.valor}}</p>
+							            </div>
+						            </div>
+						            <!--<div v-for="item in listaAuxiliar" class="contenidoArreglo" style="border: 2px solid #000000;padding: 2px; margin-bottom: 5px;"
+						            :class="item.estadoCss" >
+						            	<p style="margin: 0;">{{item.valor}}</p>
+						            </div>-->
+					            </div>
+					        </div>
+
+					        <div class="row" v-if="listaTransicionNoVacia">
+				            	<div class="col-md-12">
+				                    <label class="label-tabla">Arreglo ordenado <span v-if="conConometroValorActual && !encabezadoFinal"  > || Tiempo: {{tiempo}} </span></label><br>
+				                </div>
+				                <div class="contenedorArreglo" >
+					                <div v-for="(item,index) in listaTransicion" class="contenidoArreglo" style="padding: 2px; margin-bottom: 5px;" >
+
+					                	<div style="margin: 2px; border-radius: 5px;" :class="item.estadoCssCabeza" v-if="encabezadoFinal"  > 
+							            		<p style="margin: 0; margin-left: 5px;">{{index+1}}</p>
+							             	</div>
+
+							            <div class="contenidoArreglo" style="border: 2px solid #000000;padding: 2px; margin-bottom: 5px;" :class="item.estadoCss" >
+							            	<p style="margin: 0;">{{item.valor}}</p>
+							            </div>
+						            </div>
+					            </div>
+					        </div>
+
+					        <div class="row" v-if="listaAuxMitad1NoVacia">
+				            	<div class="col-md-12">
+				                    <label class="label-tabla">Arreglo ordenado <span v-if="conConometroValorActual"  > || Tiempo: {{tiempo}} </span></label><br>
+				                </div>
+				                <div class="contenedorArreglo" >
+						            <div v-for="item in listaAuxMitad1" class="contenidoArreglo" style="margin-right: 40px;" >
+						            	<div v-for="itemSub1 in item" class="contenidoArreglo" style="border: 2px solid #000000;padding: 2px; margin-bottom: 5px;"
+						            		:class="itemSub1.estadoCss">
+						            		<p style="margin: 0;">{{itemSub1.valor}}</p>
+						            	</div>
+						            
+						            </div>
+					            </div>
+					        </div>
+
+					        <div class="row" v-if="listaAuxMitad2NoVacia">
+				            	<div class="col-md-12">
+				                    <label class="label-tabla">Arreglo auxiliar </label><br>
+				                </div>
+				                <div class="contenedorArreglo" >
+						            <div v-for="item in listaAuxMitad2" class="contenidoArreglo" style="margin-right: 40px;" >
+						            	<div v-for="itemSub1 in item" class="contenidoArreglo" style="border: 2px solid #000000;padding: 2px; margin-bottom: 5px;"
+						            		:class="itemSub1.estadoCss">
+						            		<p style="margin: 0;">{{itemSub1.valor}}</p>
+						            	</div>
+						            
+						            </div>
+					            </div>
+					        </div>
+
+
+        				</div>
+                    </div>
+                </div>
+
+                
+             
+
+            </div>
+        </div>
+    </div>
+
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+   	<script src="../MODELO/index.js"></script>
+
+</body>
+
+</html>
+
