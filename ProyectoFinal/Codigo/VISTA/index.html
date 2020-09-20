@@ -194,6 +194,7 @@
 
 
                     </div>
+
                 </div>
 
 
@@ -229,7 +230,7 @@
                     	</div>
                     	
 
-                    	<div class="container">
+                    	<div class="container" style="width: 70%; float: left;">
 
                     		<div class="row" v-if="listaInicialNoVacia">
 				            	<div class="col-md-12">
@@ -338,11 +339,132 @@
 
 
         				</div>
-                    </div>
-                </div>
 
-                
-             
+        				<div class="container" style="width: 30%; float: left;">
+        					<h1 class="titulo-contenedor">Pseudocódigo</h1>
+        					<br/>
+        					<span v-if="txtSelection" >
+	        					ACCION SelectionSort (A,n)
+	        					<br/>
+	        					INICIO
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;ENTERO i,j
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;PARA i<-0 HASTA n-1
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;PARA j<-i+1 HASTA n
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;SI (A[j] < A[i])
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;intercambiar(A[i], A[j])
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;FIN_SI
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;FIN_PARA
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;FIN_PARA
+								<br/>
+								FIN
+							</span>
+							<span v-if="txtQuick" >
+	        					ACCION QuickSort (A,inf,sup)
+								<br/>
+								INICIO
+							    <br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;ENTERO i,j
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;i<-inf
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;j<-sup
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;x<-A[(inf+sup)/2]
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;MIENTRAS (i<=j)
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;MIENTRAS (A[i]&lt;x) 
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;i <- i+1
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;FIN_MIENTRAS
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;MIENTRAS (A[j]>x) 
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;j <- j-1
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;FIN_MIENTRAS
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;SI (i<=j)
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;tam <- A[i]
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;A[i] <- A[j]
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;A[j] <- tam
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;i <- i+1
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;j <- j-1
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;FIN_SI
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;FIN_MIENTRAS
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;SI (inf&lt;j)
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;QuickSort (A,inf,j)
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;FIN_SI
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;SI (i&lt;sup)
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;QuickSort (A,i,sup)
+								<br/>
+								&nbsp;&nbsp;&nbsp;&nbsp;FIN_SI
+								<br/>
+								FIN 
+								<br/>
+							</span>
+							<span v-if="txtCounting" >
+	        					ACCION CountingSort (A,B,k)
+								<br/>
+								INICIO
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;ENTERO i,j
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;PARA i<-1 HASTA k
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;C[i] <- 0
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;FIN_PARA
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;PARA j<-1 HASTA n
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;C[A[j]] <- C[A[j]] + 1
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;FIN_PARA
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;PARA i<-2 HASTA k
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;C[i] <- C[i] + C[i-1]
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;FIN_PARA
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;PARA j<-n HASTA 1
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;B[C[A[j]]] <- A[j]
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;C[A[j]] <- C[A[j]] - 1
+							    <br/>
+							    &nbsp;&nbsp;&nbsp;&nbsp;FIN_PARA
+							    <br/>
+								FIN
+							</span>
+        					<!--<span v-html="algoritmo"></span>-->
+        				</div>
+
+                    </div>
+
+                </div>
 
             </div>
         </div>

@@ -36,7 +36,11 @@ var mainIndex = new Vue({
         velocidad:500,
         velocidadActual:0,
         tiempo:'------',
-        maximoAleatorio:100
+        maximoAleatorio:100,
+
+        txtSelection:false,
+        txtQuick:false,
+        txtCounting:false
 
     }, watch: {
         
@@ -175,23 +179,29 @@ var mainIndex = new Vue({
             }else{
                 clearInterval(intervalo);
             }
+            vm.txtSelection=false;
+            vm.txtQuick=false;
+            vm.txtCounting=false;
         	switch (modo) {
 			  case 1:
 			    vm.tituloOrdenamiento='Ordenamiento por Selection Sort';
 			    vm.InicializarListaSelection();
                 vm.OrdenarSelectionSort();
+                vm.txtSelection=true;
 			    vm.ordenado=true;
 			    break;
 			  case 2:
 			    vm.tituloOrdenamiento='Ordenamiento por Quick Sort';
 			    vm.InicializarListaQuick();
                 vm.OrdenarQuickSort();
+                vm.txtQuick=true;
 			    vm.ordenado=true;
 			    break;
 			  case 3:
 			    vm.tituloOrdenamiento='Ordenamiento por Counting Sort';
 			    vm.InicializarListaCounting();
                 vm.OrdenarCountingSort();
+                vm.txtCounting=true;
 			    vm.ordenado=true;
 			    break;
 			  default:
